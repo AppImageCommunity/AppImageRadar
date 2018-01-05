@@ -6,18 +6,14 @@ if [ -z "$GITHUB_TOKEN" ] ; then
   exit 1
 fi
 
+# rm repos.json
+curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/search/code?sort=indexed&q=linuxdeployqt&page=1&per_page=100" > repos.json
+curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/search/code?sort=indexed&q=AppImageKit&page=1&per_page=100" >> repos.json
 # Find projects that have AppImage mentioned in their package.json
 # since these possibly might offer an AppImage for download
-rm repos.json
-for i in $(seq 1 10) ; do
+for i in $(seq 1 5) ; do
   curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/search/code?sort=indexed&q=appimage+filename:package.json&page=$i&per_page=100" >> repos.json
 done    
-
-# linuxdeployqt
-# curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/search/code?sort=indexed&q=linuxdeployqt&page=1&per_page=100" > repos.json
-
-# AppImageKit
-# curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/search/code?sort=indexed&q=AppImageKit&page=1&per_page=100" > repos.json
 
 # Check whether the identified projects offer an 64-bit AppImage for download on GitHub Releases
 # --> if yes, check whether the project is already mentioned on AppImageHub
