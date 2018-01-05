@@ -1,4 +1,4 @@
-# AppImageRadar
+# AppImageRadar [![Build Status](https://travis-ci.org/AppImage/AppImageRadar.svg?branch=master)](https://travis-ci.org/AppImage/AppImageRadar)
 
 Bash scripts to help quickly see what is going on in the AppImage world on GitHub:
 
