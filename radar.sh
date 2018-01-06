@@ -45,7 +45,7 @@ for RELEASE in $RELEASES; do
     APPNAME=$(echo "$APPIMAGE" | cut -d "/" -f 9 | cut -d "_" -f 1 | cut -d "-" -f 1)
     ISSUES=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/search/issues?q=AppImage+repo:$SLUG" | grep total_count | cut -d : -f 2 | cut -d " " -f 2 | cut -d "," -f 1)
     # echo "# In $SLUG: Code: $CODE, Issues: $ISSUES"
-    STARS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$SLUG | grep stargazers_count | cut -d : -f 2 | cut -d " " -f 2 | cut -d "," -f 1)
+    STARS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$SLUG | grep stargazers_count | cut -d : -f 2 | cut -d " " -f 2 | cut -d "," -f 1 | head -n 1)
     if [ $STARS -gt 1 ] ; then
       if [ "$ISSUES" == "0" ] ; then
         echo "https://github.com/$SLUG/issues/new # ($STARS stars)"
